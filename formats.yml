@@ -300,8 +300,7 @@ se: |-
 sg: |-
     {{recipient}}
     {{street}}
-    {{city}} {{zip}}
-    {{country}}
+    {{country}} {{zip}}
 si: |-
     {{recipient}}
     {{street}}
