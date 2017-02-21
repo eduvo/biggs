@@ -6,7 +6,7 @@
 #   * state
 #   * country
 #
---- 
+---
 ae: |-
     {{recipient}}
     {{street}}
@@ -156,8 +156,8 @@ il: |-
 in: |-
     {{recipient}}
     {{street}}
-    {{state}}
-    {{city}} {{zip}}
+    {{city}}
+    {{state}} {{zip}}
     {{country}}
 is: |-
     {{recipient}}
@@ -351,7 +351,7 @@ yu: |-
     {{recipient}}
     {{street}}
     {{zip}} {{city}}
-    
+
     {{state}}
     {{country}}
 za: |-
