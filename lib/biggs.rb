@@ -9,19 +9,27 @@ module Biggs
     end
 
     def country_names
-      @@country_names ||= YAML.load_file(File.join(File.dirname(__FILE__), '..', 'country_names.yml')) || {}
+      Rails.cache.fetch("biggs_#{lang_prefix}") do
+        DataCountry.where.not(alpha2: nil).pluck(:alpha2, "#{lang_prefix}name").to_h
+      end
     end
 
     def china_country_names
-      lang_prefix = if ApplicationRecord.locale_in_english?
+      Rails.cache.fetch("biggs_#{lang_prefix}_CN") do
+        DataCountry.where.not(alpha2: nil).pluck(:alpha2, "#{lang_prefix}name").to_h
+                   .each_with_object({}) do |(k, v), h|
+          h[k] = v.political_name(Concerns::DomainDataCache::CHINA_COUNTRY_ID)
+        end
+      end
+    end
+
+    private
+
+    def lang_prefix
+      if ApplicationRecord.locale_in_english?
         ''
       else
         I18n.locale.to_s.underscore + '_'
-      end
-      Rails.cache.fetch("biggs_#{lang_prefix}_CN") do
-        DataCountry.where.not(alpha2: nil).pluck("#{lang_prefix}name", :alpha2).inject({}) do |res, i|
-          res[i[1].downcase] = i[0]
-        end
       end
     end
   end
