@@ -17,7 +17,7 @@ module Biggs
       (FIELDS - [:country]).each do |key|
         format_string.gsub!(/\{\{#{key}\}\}/, (values[key] || '').to_s)
       end
-      format_string.gsub!(/\{\{country\}\}/, country_name) unless country.nil?
+      format_string.gsub!(/\{\{country\}\}/, country_name.to_s)
       format_string.gsub(/\n$/, '')
     end
 
