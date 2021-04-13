@@ -26,10 +26,10 @@ module Biggs
     private
 
     def lang_prefix
-      if ApplicationRecord.locale_in_english?
-        ''
-      else
+      if I18n.locale.to_s.start_with?('zh-')
         I18n.locale.to_s.underscore + '_'
+      else
+        ''
       end
     end
   end
